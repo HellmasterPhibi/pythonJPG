@@ -15,26 +15,40 @@ def getExif(i):
 
 
 img = Image.open('skluzavka.jpg')
-exif_dict = piexif.load(img.info["exif"])
+exifDict = piexif.load(img.info["exif"])
 print(img.format, img.size, img.mode)
 width, height = img.size
 box = (0, 0, width/2, height)
 region = img.crop(box)
 #region.show()
+
+#copy the original exif data into variable origEfic
 origExif = img.info['exif']
 region.save('vyrez.jpg','jpeg', exif=origExif)
 
 vyrez = Image.open('vyrez.jpg')
+
 print(getExif(img))
 print(getExif(vyrez))
 
 
 
-exif_dict = piexif.load(img.info["exif"])
-exif_dict["0th"][piexif.ImageIFD.XResolution] = (width, 1)
-exif_dict["0th"][piexif.ImageIFD.YResolution] = (height, 1)
+exifDict = piexif.load(img.info["exif"])
 
-exif_bytes = piexif.dump(exif_dict)
-img.save('newExif.jpg', "jpeg", exif=exif_bytes)
+
+exifDict["0th"][piexif.ImageIFD.XResolution] = (width, 1)
+exifDict["0th"][piexif.ImageIFD.YResolution] = (height, 1)
+
+extra = {
+   'textMeta': '------------------Ahoj, ja jsem poznamka',
+   'imageMeta': '*********************I shall be an image',
+}
+
+exifDict.update(extra)
+
+print(exifDict)
+print(exifDict["0th"][piexif.ImageIFD.XResolution])
+exifBytes = piexif.dump(exifDict)
+img.save('newExif.jpg', "jpeg", exif=exifBytes)
 img2 = Image.open('newExif.jpg')
 print(getExif(img2))
