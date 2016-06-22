@@ -4,12 +4,12 @@ import io
 import argparse
 
 parser = argparse.ArgumentParser(description='This script opens a specific 3D jpg image file, cuts one half of it and adds specific metadata. '
-                                             'This script can be used only on the file skluzavka.jpg, so be sure that you have such file in the same directory. '
+                                             'This script can be used only on the file skluzavka.jpg, so be sure that you have such file in the same directory.  '
                                             'The output file is called vyrez.jpg and it wil be also saved into the current directory. '
                                              'All metadata are shown on the standard output so you can compare.'
                                              'The metadata added are: '
                                              '1) a secret message(plaintext) in the exif cathegory "software" '
-                                             '2) an image file (binary) in the exif cathegory "thumbnail". '
+                                             '2) an image file (binary, called wolf.jpg, you need to have one in your working directory) in the exif cathegory "thumbnail". '
                                              'Afterwards, this same script returns these exif data to their original state. ')
 
 args = parser.parse_args()
