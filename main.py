@@ -1,9 +1,11 @@
+from csv import excel
+
 from PIL import Image
 import piexif
 import io
 
 def cropInHalf(input):
-   img = Image.open('skluzavka.jpg')
+   img = Image.open(input)
    exifDict = piexif.load(img.info["exif"])
    width, height = img.size
    box = (0, 0, width/2, height)
@@ -21,9 +23,15 @@ def ImageDump(imageFile):
   thumbnail = o.getvalue()
   return thumbnail
 
-vyrez = Image.open('vyrez.jpg')
-exifDict = piexif.load(vyrez.info["exif"])
-print(exifDict)
+cropInHalf('skluzavka.jpg')
+
+def getExif(fileName):
+  vyrez = Image.open(fileName)
+  exifDict = piexif.load(vyrez.info["exif"])
+  print(exifDict)
+  return exifDict
+
+exifDict=getExif('vyrez.jpg')
 
 oldThumb = exifDict["thumbnail"]
 #I chose to hide the secret text message in the field "Software"
@@ -32,12 +40,18 @@ exifDict["thumbnail"] = ImageDump("wolf.jpg")
 
 exifBytes = piexif.dump(exifDict)
 piexif.insert(exifBytes, "vyrez.jpg")
-img2 = Image.open('vyrez.jpg')
 
-exifDict2 = piexif.load(img2.info["exif"])
-print(exifDict2)
-
-img2.show()
-
+exifDict2 = getExif('vyrez.jpg')
 #print text message stored in exif
 print(exifDict2["1st"][piexif.ImageIFD.Software])
+
+#now remove the meta image and secret message:
+exifDict2["thumbnail"] = oldThumb
+exifDict2["1st"][piexif.ImageIFD.Software] = ""
+exifBytes2 = piexif.dump(exifDict2)
+piexif.insert(exifBytes2, "vyrez.jpg")
+
+exifDict3 = getExif('vyrez.jpg')
+#print text message stored in exif
+print(exifDict3["1st"][piexif.ImageIFD.Software])
+
