@@ -3,7 +3,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 import piexif
 
-def get_exif(i):
+def getExif(i):
   ret = {}
   #i = Image.open(fn)
   info = i._getexif()
@@ -12,6 +12,8 @@ def get_exif(i):
     ret[decoded] = value
   return ret
 
+
+
 img = Image.open('skluzavka.jpg')
 exif_dict = piexif.load(img.info["exif"])
 print(img.format, img.size, img.mode)
@@ -19,9 +21,14 @@ width, height = img.size
 box = (0, 0, width/2, height)
 region = img.crop(box)
 #region.show()
-region.save('vyrez.jpg','jpeg')
+origExif = img.info['exif']
+region.save('vyrez.jpg','jpeg', exif=origExif)
 
-print(get_exif(img))
+vyrez = Image.open('vyrez.jpg')
+print(getExif(img))
+print(getExif(vyrez))
+
+
 
 exif_dict = piexif.load(img.info["exif"])
 exif_dict["0th"][piexif.ImageIFD.XResolution] = (width, 1)
@@ -30,4 +37,4 @@ exif_dict["0th"][piexif.ImageIFD.YResolution] = (height, 1)
 exif_bytes = piexif.dump(exif_dict)
 img.save('newExif.jpg', "jpeg", exif=exif_bytes)
 img2 = Image.open('newExif.jpg')
-print(get_exif(img2))
+print(getExif(img2))
