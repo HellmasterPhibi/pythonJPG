@@ -1,7 +1,7 @@
-from __future__ import print_function
 from PIL import Image
 from PIL.ExifTags import TAGS
 import piexif
+import io
 
 def getExif(i):
   ret = {}
@@ -32,24 +32,19 @@ print(getExif(img))
 print(getExif(vyrez))
 
 
-
 exifDict = piexif.load(img.info["exif"])
 
 
 exifDict["0th"][piexif.ImageIFD.XResolution] = (width, 1)
 exifDict["0th"][piexif.ImageIFD.YResolution] = (height, 1)
+exifDict["1st"][piexif.ImageIFD.Software] = "-------------Tajna zprava---------------------"
 
-extra = {
-   'textMeta': '------------------Ahoj, ja jsem poznamka',
-   'imageMeta': '*********************I shall be an image',
-}
-
-exifDict.update(extra)
-
-print(exifDict)
 exifBytes = piexif.dump(exifDict)
-img.save('newExif.jpg', "jpeg", exif=exifBytes)
-img2 = Image.open('newExif.jpg')
+#extraBytes = piexif.dump(extra)
+img.save('newExif.jpg', "jpeg")
 #print(getExif(img2))
+piexif.insert(exifBytes, "newExif.jpg")
+img2 = Image.open('newExif.jpg')
+
 exifDict2 = piexif.load(img2.info["exif"])
 print(exifDict2)
