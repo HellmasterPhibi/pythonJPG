@@ -47,8 +47,9 @@ extra = {
 exifDict.update(extra)
 
 print(exifDict)
-print(exifDict["0th"][piexif.ImageIFD.XResolution])
 exifBytes = piexif.dump(exifDict)
 img.save('newExif.jpg', "jpeg", exif=exifBytes)
 img2 = Image.open('newExif.jpg')
-print(getExif(img2))
+#print(getExif(img2))
+exifDict2 = piexif.load(img2.info["exif"])
+print(exifDict2)
