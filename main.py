@@ -5,7 +5,8 @@ from PIL import Image
 img = Image.open('skluzavka.jpg')
 
 print(img.format, img.size, img.mode)
-box = (0, 0, 1024, 1536)
+width, height = img.size
+box = (0, 0, width/2, height)
 region = img.crop(box)
 region.show()
 region.save('vyrez.jpg','jpeg')
