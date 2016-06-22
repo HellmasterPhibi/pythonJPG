@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d314b9c8-153b-4eff-ad68-0ff2cf2bd724" name="Default" comment="seeing how crop works">
+    <list default="true" id="d314b9c8-153b-4eff-ad68-0ff2cf2bd724" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <ignored path="semestralka.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -368,7 +367,13 @@
       <option name="project" value="LOCAL" />
       <updated>1466603152270</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="half of the image has been cropped and saved">
+      <created>1466603748532</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1466603748532</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -410,7 +415,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="opening image" />
     <MESSAGE value="seeing how crop works" />
-    <option name="LAST_COMMIT_MESSAGE" value="seeing how crop works" />
+    <MESSAGE value="half of the image has been cropped and saved" />
+    <option name="LAST_COMMIT_MESSAGE" value="half of the image has been cropped and saved" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
